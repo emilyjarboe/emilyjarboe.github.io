@@ -1,0 +1,383 @@
+<title>Maverick Style Preview</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+
+  .pv-note { border-bottom: 1px solid var(--rule); }
+  .pv-note .wrap { display: flex; justify-content: space-between; align-items: center; gap: .6rem 1.5rem; flex-wrap: wrap; padding-block: .6rem; color: var(--ink-soft); }
+
+  /* ---------- 01 Home: layered hero ---------- */
+  .hero { padding-block: 1.4rem 4rem; }
+  .hero__meta { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; color: var(--ink-soft); margin-bottom: 1rem; }
+  .hero__stage { padding-bottom: clamp(3rem, 9vw, 7rem); }
+  .hero__frame { height: min(58vw, 64vh); min-height: 340px; overflow: hidden; background: var(--panel); }
+  .hero__frame img { object-position: 60% 35%; }
+  .hero__frame::after { content: ""; position: absolute; inset: 40% 0 0 0; background: linear-gradient(to top, rgba(20, 18, 16, .45), rgba(20, 18, 16, 0)); pointer-events: none; }
+  .hero__over { right: 5%; bottom: 0; width: clamp(120px, 21%, 280px); aspect-ratio: 4 / 5; border: 6px solid var(--bg); }
+  .hero__name { position: absolute; left: clamp(14px, 3vw, 44px); bottom: calc(clamp(3rem, 9vw, 7rem) + clamp(12px, 2.4vw, 34px)); z-index: 3; color: var(--paper); font-size: var(--name); line-height: .88; }
+  .hero__name .ln { display: block; overflow: hidden; padding: .04em .06em .08em 0; }
+  .hero__name .ch { display: inline-block; }
+  .hero__name .ln + .ln { padding-left: .5em; }
+  .hero__under { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: end; }
+  .hero__under .lede { max-width: 34ch; }
+
+  /* ---------- sections ---------- */
+  .sec { padding-block: clamp(4rem, 9vw, 8rem); border-top: 1px solid var(--rule); }
+  .sec__head { display: grid; gap: 1.6rem; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+
+  /* 02 About */
+  .about { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+  .about__photos { padding-top: 12%; }
+  .about__photos .layer__main { width: 78%; margin-left: 22%; aspect-ratio: 4 / 5; }
+  .about__photos .layer__ghost { left: 0; top: 0; width: 64%; aspect-ratio: 3 / 2; }
+  .about__photos figcaption { margin-top: .8rem; margin-left: 22%; color: var(--ink-soft); }
+  .about__text { display: grid; gap: 1.6rem; min-width: 0; }
+  .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: .4rem 0 0; border-top: 1px solid var(--rule); }
+  .facts div { padding: 1rem 0; border-bottom: 1px solid var(--rule); display: grid; gap: .3rem; }
+  .facts dt { color: var(--ink-soft); }
+  .facts dd { margin: 0; font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; }
+  .facts dd em { font-style: italic; }
+  .three { list-style: none; padding: 0; margin: 0; display: grid; gap: .9rem; }
+  .three li { display: grid; grid-template-columns: 2.4rem 1fr; align-items: baseline; }
+  .three .n { font-family: var(--font-display); font-style: italic; font-size: 1.4rem; color: var(--bronze-deep); }
+  .row { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; }
+
+  /* 03 Rover */
+  .rover { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+  .rover__text { display: grid; gap: 2rem; min-width: 0; }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .stats div { padding: 1.4rem 0; display: grid; gap: .3rem; }
+  .stats div + div { border-left: 1px solid var(--rule); padding-left: clamp(.8rem, 2vw, 1.6rem); }
+  .stats b { font-family: var(--font-display); font-weight: 300; font-size: clamp(2.6rem, 1.8rem + 3vw, 4.5rem); line-height: 1; }
+  .quote { margin: 0; display: grid; gap: .8rem; }
+  .quote p { font-family: var(--font-display); font-style: italic; font-size: var(--step-2); line-height: 1.12; max-width: 24ch; }
+  .collage { position: relative; aspect-ratio: 5 / 6; max-width: 100%; }
+  .collage .ph { position: absolute; background: var(--panel); display: grid; place-items: end start; padding: .8rem; color: var(--ink-soft); }
+  .collage .ph:nth-child(1) { left: 0; top: 6%; width: 62%; aspect-ratio: 4 / 5; }
+  .collage .ph:nth-child(2) { right: 0; top: 0; width: 52%; aspect-ratio: 1; opacity: .7; background: #CFCBC2; z-index: 1; }
+  .collage .ph:nth-child(3) { left: 30%; bottom: 0; width: 46%; aspect-ratio: 4 / 5; opacity: .9; background: #D6D2CA; z-index: 2; border: 6px solid var(--bg); }
+  .placeholder-tag { color: var(--bronze-deep); }
+
+  /* 04 Dog Diaries teaser */
+  .phrases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(2rem, 6vw, 5rem); border-top: 1px solid var(--rule); }
+  .phrase { display: grid; grid-template-columns: 9.5rem 1fr; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+  .phrase span:last-child { font-family: var(--font-display); font-style: italic; font-size: 1.55rem; line-height: 1.2; }
+
+  /* Meet Maverick: pose sheet */
+  .sheet { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(1.2rem, 3vw, 2.5rem); border-top: 1px solid var(--rule); }
+  .pose { display: grid; gap: .8rem; padding: 1.6rem 0 1.4rem; border-bottom: 1px solid var(--rule); min-width: 0; }
+  .pose__art { position: relative; height: 170px; }
+  .pose__art img { position: absolute; left: 0; bottom: 0; height: auto; max-height: 100%; width: auto; max-width: 100%; }
+  .pose__meta { display: flex; justify-content: space-between; align-items: baseline; gap: .6rem; flex-wrap: wrap; }
+  .pose__meta b { font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: 1.45rem; }
+  .pose button { justify-self: start; }
+
+  /* style notes */
+  .notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 3rem; }
+  .notes > div { display: grid; gap: 1.1rem; align-content: start; min-width: 0; }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: .8rem; }
+  .swatch { display: grid; gap: .4rem; }
+  .swatch i { display: block; height: 52px; border: 1px solid rgba(30, 28, 26, .1); }
+  .fontrow { display: grid; gap: .25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--rule); }
+  .asks { margin: 0; padding: 0; list-style: none; display: grid; gap: .9rem; }
+  .asks li { display: grid; grid-template-columns: 1.6rem 1fr; }
+  .asks li::before { content: "—"; color: var(--bronze); }
+
+  footer.foot { border-top: 1px solid var(--rule); padding-block: 2.2rem 9rem; }
+  footer.foot .wrap { display: flex; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap; color: var(--ink-soft); }
+  footer.foot ul { display: flex; gap: 1.6rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+  footer.foot a { text-decoration: none; }
+
+  @media (max-width: 860px) {
+    .about, .rover { grid-template-columns: 1fr; }
+    .about__photos { max-width: 460px; }
+    .collage { max-width: 440px; }
+    .phrases { grid-template-columns: 1fr; }
+    .sheet { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 600px) {
+    .hero__frame { height: 60svh; min-height: 380px; }
+    .hero__frame img { object-position: 50% 30%; }
+    .hero__meta span:last-child { display: none; }
+    .hero__over { width: 34%; right: 0; }
+    .hero__under { grid-template-columns: 1fr; }
+    .stats b { font-size: 2.4rem; }
+    .facts { grid-template-columns: 1fr; }
+    .phrase { grid-template-columns: 1fr; gap: .2rem; }
+    .pose__art { height: 120px; }
+    .topnav__name { display: none; }
+  }
+</style>
+
+<div class="pv-note">
+  <div class="wrap mono">
+    <span>Preview v3 · Mixed type, layered photos, Maverick</span>
+    <button class="mv-toggle" type="button" id="mv-toggle" aria-pressed="false">🐾 <span>Hide Maverick</span></button>
+  </div>
+</div>
+
+<nav class="topnav" aria-label="Main">
+  <div class="wrap">
+    <a class="topnav__name" href="#home">Your Name</a>
+    <ul>
+      <li><a class="mono is-active" href="#home" data-sec="home">Home</a></li>
+      <li><a class="mono" href="#about" data-sec="about">About</a></li>
+      <li><a class="mono" href="#rover" data-sec="rover">Rover</a></li>
+      <li><a class="mono" href="#diaries" data-sec="diaries">Dog Diaries</a></li>
+      <li><a class="mono" href="#maverick">Lately →</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <!-- 01 HOME -->
+  <section class="hero" id="home" aria-label="Home" data-pose="walk">
+    <div class="wrap">
+      <div class="hero__meta mono"><span>Vol 01 · November 2026</span><span>A personal journal</span></div>
+      <div class="hero__stage layer">
+        <div class="hero__frame layer__main">
+          <picture>
+            <source media="(max-width: 600px)" srcset="images/me-sunset.jpg">
+            <img src="images/me-sunset-wide.jpg" alt="Smiling on a terrace at sunset" width="2000" height="1333">
+          </picture>
+        </div>
+        <div class="hero__over layer__over" data-speed="10">
+          <img src="images/me-graduation.jpg" alt="Graduation day" width="1000" height="1250">
+        </div>
+        <h1 class="hero__name"><span class="ln">Hi, I'm</span><span class="ln"><em>Your Name</em></span></h1>
+      </div>
+      <div class="hero__under">
+        <p class="lede">Recent grad, Rover dog walker, and collector of dog photos from eight countries.</p>
+        <div class="sec-label mono"><span class="num">01</span><span class="rule"></span><span>Scroll</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 ABOUT -->
+  <section class="sec" id="about" aria-labelledby="about-h" data-pose="sit">
+    <div class="wrap">
+      <div class="sec__head">
+        <div class="sec-label mono"><span class="num">02</span><span class="rule"></span><span>About</span></div>
+      </div>
+      <div class="about">
+        <figure class="about__photos layer" style="margin:0">
+          <div class="layer__ghost" data-speed="-8"><img src="images/me-sunset-wide.jpg" alt="" width="2000" height="1333"></div>
+          <div class="layer__main"><img src="images/me-graduation.jpg" alt="Graduation day beside the Testudo statue" width="1000" height="1250"></div>
+          <figcaption class="mono">Graduation day</figcaption>
+        </figure>
+        <div class="about__text">
+          <h2 id="about-h" class="reveal">A little <em>about me</em></h2>
+          <p class="lede reveal">A few warm sentences about who you are go here. Send me rough notes and I'll shape them into something that sounds like you.</p>
+          <dl class="facts reveal">
+            <div><dt class="mono">Studied</dt><dd>Your <em>major</em></dd></div>
+            <div><dt class="mono">Currently</dt><dd>What you're <em>doing</em></dd></div>
+            <div><dt class="mono">Based in</dt><dd>Your <em>city</em></dd></div>
+            <div><dt class="mono">Always</dt><dd>Petting <em>the dog</em></dd></div>
+          </dl>
+          <div class="reveal" style="display:grid; gap:1rem">
+            <h3>Three things about me</h3>
+            <ol class="three">
+              <li><span class="n">i.</span><span>A fun fact goes here.</span></li>
+              <li><span class="n">ii.</span><span>A second, slightly surprising one.</span></li>
+              <li><span class="n">iii.</span><span>And one that makes people smile.</span></li>
+            </ol>
+          </div>
+          <div class="row reveal">
+            <a class="btn" href="#about">Download resume</a>
+            <a class="btn btn--ghost" href="#about">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 ROVER -->
+  <section class="sec" id="rover" aria-labelledby="rover-h" data-pose="playbow">
+    <div class="wrap">
+      <div class="sec__head">
+        <div class="sec-label mono"><span class="num">03</span><span class="rule"></span><span>Rover</span></div>
+        <h2 id="rover-h" class="reveal" style="font-size: var(--step-3)">Walking dogs, <em>on Rover</em></h2>
+      </div>
+      <div class="rover">
+        <div class="rover__text">
+          <div class="stats reveal">
+            <div><b>120+</b><span class="mono soft">Walks</span></div>
+            <div><b>5.0</b><span class="mono soft">Rating</span></div>
+            <div><b>18</b><span class="mono soft">Repeat clients</span></div>
+          </div>
+          <p class="mono placeholder-tag">Sample numbers. Yours go here.</p>
+          <blockquote class="quote reveal">
+            <p>“A review from one of your clients goes here, in their own words.”</p>
+            <span class="mono soft">— Owner of Biscuit, a golden retriever</span>
+          </blockquote>
+          <div><a class="btn" href="#rover">Book me on Rover</a></div>
+        </div>
+        <div class="collage" aria-label="Rover photo collage (placeholders)">
+          <div class="ph mono" data-speed="-6">Walk photo</div>
+          <div class="ph mono" data-speed="8">Walk photo</div>
+          <div class="ph mono" data-speed="14">Walk photo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 DOG DIARIES (teaser; the map comes next) -->
+  <section class="sec" id="diaries" aria-labelledby="diaries-h" data-pose="lieup">
+    <div class="wrap">
+      <div class="sec__head">
+        <div class="sec-label mono"><span class="num">04</span><span class="rule"></span><span>Dog Diaries</span></div>
+        <h2 id="diaries-h" class="reveal" style="font-size: var(--step-3)">Can I <em>pet</em> your dog?</h2>
+        <p class="lede reveal">Dogs I've met in eight countries. The clickable map goes here next. This is how the phrases will look.</p>
+      </div>
+      <div class="phrases reveal">
+        <div class="phrase"><span class="mono soft">England</span><span>Can I pet your dog?</span></div>
+        <div class="phrase"><span class="mono soft">Spain</span><span>¿Puedo acariciar a tu perro?</span></div>
+        <div class="phrase"><span class="mono soft">France</span><span>Est-ce que je peux caresser votre chien ?</span></div>
+        <div class="phrase"><span class="mono soft">Portugal</span><span>Posso fazer festinhas ao seu cão?</span></div>
+        <div class="phrase"><span class="mono soft">Denmark</span><span>Kan jeg røre din hund?</span></div>
+        <div class="phrase"><span class="mono soft">Italy</span><span>Posso accarezzare il tuo cane?</span></div>
+        <div class="phrase"><span class="mono soft">Croatia</span><span>Mogu li pomaziti psa?</span></div>
+        <div class="phrase"><span class="mono soft">New Zealand</span><span>Can I pet your dog?</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meet Maverick (preview only) -->
+  <section class="sec" id="maverick" aria-labelledby="mav-h" data-pose="stand">
+    <div class="wrap">
+      <div class="sec__head">
+        <div class="sec-label mono"><span class="num">—</span><span class="rule"></span><span>Meet Maverick</span></div>
+        <h2 id="mav-h" class="reveal" style="font-size: var(--step-3)">Six poses, <em>one good boy</em></h2>
+        <p class="lede reveal">Your artist's drawings, cut into separate layers. As you scroll the site he changes pose for each section. Press "Try it" to see one on the live Maverick in the corner.</p>
+      </div>
+      <div class="sheet">
+        <div class="pose"><div class="pose__art"><img src="images/maverick/walk.webp" alt="Maverick walking" width="539" height="470"></div><div class="pose__meta"><b>Walking</b><span class="mono soft">01 Home</span></div><button class="mv-toggle" type="button" data-try="walk">Try it</button></div>
+        <div class="pose"><div class="pose__art"><img src="images/maverick/sit.webp" alt="Maverick sitting" width="356" height="458"></div><div class="pose__meta"><b>Sitting</b><span class="mono soft">02 About</span></div><button class="mv-toggle" type="button" data-try="sit">Try it</button></div>
+        <div class="pose"><div class="pose__art"><img src="images/maverick/playbow.webp" alt="Maverick in a play bow" width="512" height="472"></div><div class="pose__meta"><b>Play bow</b><span class="mono soft">03 Rover</span></div><button class="mv-toggle" type="button" data-try="playbow">Try it</button></div>
+        <div class="pose"><div class="pose__art"><img src="images/maverick/lieup.webp" alt="Maverick lying with his head up" width="503" height="352"></div><div class="pose__meta"><b>Watching</b><span class="mono soft">04 Dog Diaries</span></div><button class="mv-toggle" type="button" data-try="lieup">Try it</button></div>
+        <div class="pose"><div class="pose__art"><img src="images/maverick/stand.webp" alt="Maverick standing on his back legs" width="399" height="549"></div><div class="pose__meta"><b>Excited</b><span class="mono soft">Lately · now</span></div><button class="mv-toggle" type="button" data-try="stand">Try it</button></div>
+        <div class="pose"><div class="pose__art"><img src="images/maverick/lieheart.webp" alt="Maverick lying down with a heart" width="533" height="279"></div><div class="pose__meta"><b>Cozy</b><span class="mono soft">Lately · favorites</span></div><button class="mv-toggle" type="button" data-try="lieheart">Try it</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Style notes (preview only) -->
+  <section class="sec" id="notes" aria-labelledby="notes-h" data-pose="lieheart">
+    <div class="wrap">
+      <div class="sec__head">
+        <div class="sec-label mono"><span class="num">—</span><span class="rule"></span><span>Style notes</span></div>
+        <h2 id="notes-h" class="reveal" style="font-size: var(--step-3)">Your <em>call</em></h2>
+      </div>
+      <div class="notes">
+        <div>
+          <h3>Fonts</h3>
+          <div class="fontrow"><span class="display" style="font-size:2.4rem">Cormorant <em>italic</em></span><span class="mono soft">Headlines, mixed case</span></div>
+          <div class="fontrow"><span class="mono" style="font-size:.95rem">IBM Plex Mono</span><span class="mono soft">Labels, nav, dates</span></div>
+          <div class="fontrow"><span style="font-size:1.3rem">Manrope</span><span class="mono soft">Body text</span></div>
+        </div>
+        <div>
+          <h3>Colors</h3>
+          <div class="swatches">
+            <div class="swatch"><i style="background:#E8E6E1"></i><span class="mono soft">Page</span></div>
+            <div class="swatch"><i style="background:#DDDAD3"></i><span class="mono soft">Panel</span></div>
+            <div class="swatch"><i style="background:#1E1C1A"></i><span class="mono soft">Ink</span></div>
+            <div class="swatch"><i style="background:#5E5952"></i><span class="mono soft">Soft ink</span></div>
+            <div class="swatch"><i style="background:#8A6A45"></i><span class="mono soft">Bronze</span></div>
+          </div>
+        </div>
+        <div>
+          <h3>Tell me</h3>
+          <ul class="asks">
+            <li><span>Does the mix of serif, cursive italic and typewriter labels feel right?</span></li>
+            <li><span>Are the layered, see-through photos the effect you wanted? More or less?</span></li>
+            <li><span>Is Maverick the right size, and do the poses fit each section?</span></li>
+            <li><span>Your artist's name and link, for the credit in the footer.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap mono">
+    <ul>
+      <li><a class="link" href="#home">Email</a></li>
+      <li><a class="link" href="#home">LinkedIn</a></li>
+      <li><a class="link" href="#home">Instagram</a></li>
+      <li><a class="link" href="#maverick">Lately →</a></li>
+    </ul>
+    <span>Maverick illustrated by [artist name] · Last updated Nov 2026</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/maverick.js"></script>
+<script>
+  (function () {
+    var reduce = Maverick.reduceMotion;
+    var mav = Maverick.mount({ base: 'images/maverick/', pose: 'walk' });
+    Maverick.bindToggle(document.getElementById('mv-toggle'));
+    document.querySelectorAll('[data-try]').forEach(function (b) {
+      b.addEventListener('click', function () { mav.setPose(b.dataset.try); });
+    });
+
+    var links = document.querySelectorAll('.topnav a[data-sec]');
+    function setActive(id) { links.forEach(function (a) { a.classList.toggle('is-active', a.dataset.sec === id); }); }
+
+    // split the name into letters (keeping the italic) for the entrance
+    document.querySelectorAll('.hero__name .ln').forEach(function (ln) {
+      (function split(node) {
+        Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+          if (child.nodeType === 3) {
+            var frag = document.createDocumentFragment();
+            child.textContent.split('').forEach(function (c) {
+              var s = document.createElement('span'); s.className = 'ch'; s.textContent = c === ' ' ? ' ' : c; frag.appendChild(s);
+            });
+            node.replaceChild(frag, child);
+          } else if (child.nodeType === 1) split(child);
+        });
+      })(ln);
+    });
+
+    if (!window.gsap || !window.ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Maverick changes pose as each section comes into view
+    document.querySelectorAll('[data-pose]').forEach(function (sec) {
+      ScrollTrigger.create({
+        trigger: sec, start: 'top 55%', end: 'bottom 55%',
+        onToggle: function (self) { if (self.isActive) mav.setPose(sec.dataset.pose); }
+      });
+    });
+    ['home', 'about', 'rover', 'diaries'].forEach(function (id) {
+      ScrollTrigger.create({ trigger: '#' + id, start: 'top 45%', end: 'bottom 45%', onToggle: function (self) { if (self.isActive) setActive(id); } });
+    });
+
+    if (reduce) return;
+
+    // Home: letters rise, main photo settles, overlapping photo fades in a beat later
+    gsap.from('.hero__frame img', { scale: 1.08, duration: 1.8, ease: 'power3.out' });
+    gsap.from('.hero__name .ch', { yPercent: 110, duration: 1.1, ease: 'power4.out', stagger: 0.04, delay: 0.2 });
+    gsap.from('.hero__over', { opacity: 0, y: 30, duration: 1.2, delay: 0.7, ease: 'power3.out' });
+
+    // Section rules draw in; content drifts up from a visible state
+    gsap.utils.toArray('.sec-label .rule').forEach(function (r) {
+      gsap.from(r, { scaleX: 0, duration: 1, ease: 'power3.inOut', scrollTrigger: { trigger: r, start: 'top 90%' } });
+    });
+    gsap.utils.toArray('.reveal').forEach(function (el) {
+      gsap.from(el, { y: 28, opacity: 0.35, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
+    });
+
+    // Light parallax: layered photos drift at different speeds
+    gsap.utils.toArray('[data-speed]').forEach(function (el) {
+      var sp = parseFloat(el.dataset.speed);
+      gsap.fromTo(el, { yPercent: sp }, { yPercent: -sp, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
+  })();
+</script>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Personal Website</title>
+  <meta name="description" content="A get-to-know-me journal: about me, my Rover dog walking, and places I've traveled.">
+  <meta name="claude:viewport-fit-sides" content="cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="topnav" aria-label="Main">
+    <div class="wrap">
+      <a class="topnav__name" href="#home" data-name>Your Name</a>
+      <ul>
+        <li><a class="mono is-active" href="#home" data-sec="home">Home</a></li>
+        <li><a class="mono" href="#about" data-sec="about">About</a></li>
+        <li><a class="mono" href="#rover" data-sec="rover">Rover</a></li>
+        <li><a class="mono" href="#travels" data-sec="travels">Travels</a></li>
+        <li><a class="mono" href="lately.html">Lately →</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero" id="home" aria-label="Home" data-pose="walk"></section>
+    <section class="sec" id="about" aria-labelledby="about-h" data-pose="sit"></section>
+    <section class="sec" id="rover" aria-labelledby="rover-h" data-pose="playbow"></section>
+    <section class="sec" id="travels" aria-labelledby="travels-h" data-pose="lieup"></section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap mono">
+      <ul id="footer-links"></ul>
+      <div class="foot__right">
+        <span id="footer-note"></span>
+        <button class="mv-toggle" type="button" aria-pressed="false">🐾 <span>Hide Maverick</span></button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/maverick.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/scroll.js"></script>
+</body>
+</html>
