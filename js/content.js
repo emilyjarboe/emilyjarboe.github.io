@@ -137,7 +137,10 @@ window.SITE = {
       url: 'https://open.spotify.com/playlist/5swchWLfuPaaZCRPdUDA0z',
       embed: 'https://open.spotify.com/embed/playlist/5swchWLfuPaaZCRPdUDA0z?utm_source=generator'
     },
-    // All-time favorite books, shown on the illustrated bookshelf.
+    // FAVORITES section: a headline, then two parts (books, then skincare).
+    favoritesTitle: 'My *favorites*',
+    booksTitle: 'Favorite *Books*',
+    // Favorite books, shown on the illustrated bookshelf.
     // "line" = genre and setting. spine = which cut-out book on the shelf (1–4).
     // cloth = the drawn cover's color. motif = the little gold drawing on it:
     // 'books', 'mountains', 'feather' or 'suitcase'.
@@ -148,7 +151,7 @@ window.SITE = {
       { title: 'People We Meet on Vacation', by: 'Emily Henry', line: 'A friends-to-lovers romantic comedy told over years of summer trips.', spine: 4, cloth: '#4F6F8F', motif: 'suitcase' }
     ],
     skincare: {
-      title: 'My skincare *routine*',
+      title: 'Skincare I’ve been *loving*',
       photo: '',          // e.g. 'images/lately/skincare.jpg' once you send your shelfie
       photoAlt: 'My four skincare products together on a shelf',
       steps: [

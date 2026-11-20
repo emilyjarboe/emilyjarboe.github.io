@@ -265,6 +265,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .fav__title { font: 300 clamp(1.7rem, 1.3rem + 1.3vw, 2.4rem)/1.05 var(--font-display); text-transform: none; letter-spacing: -0.01em; margin: 0; }
 .fav__line { color: var(--ink-soft); font-size: .95rem; }
 
+/* ---------- favorites: two parts (books, skincare) ---------- */
+.fav-part + .fav-part { margin-top: clamp(4rem, 9vw, 7rem); padding-top: clamp(2.5rem, 5vw, 4rem); border-top: 1px solid var(--rule); }
+.fav-part__head { display: grid; gap: .5rem; margin-bottom: clamp(1.8rem, 4vw, 3rem); }
+.fav-part__head h3 { font: 300 var(--step-2)/1.05 var(--font-display); text-transform: none; letter-spacing: -0.01em; margin: 0; }
+#skinshelf:empty { display: none; }
+
 /* ---------- bookshelf (Lately → favorites, js/shelves.js) ---------- */
 .shelf { display: grid; grid-template-columns: minmax(0, 520px) minmax(0, 1fr); gap: clamp(2rem, 6vw, 5.5rem); align-items: center; }
 .shelf__case { position: relative; width: 100%; aspect-ratio: 934 / 1246; }
@@ -316,7 +322,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .skin__step { display: grid; grid-template-columns: 3.2rem 1fr; gap: 1rem; padding: 1.3rem 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
 .skin__n { font: italic 400 2rem/1 var(--font-display); color: var(--bronze-deep); }
 .skin__step .tag { margin-left: .5rem; vertical-align: 1px; }
-.skin__product { font: 300 clamp(1.5rem, 1.2rem + 1vw, 2rem)/1.15 var(--font-display); text-transform: none; letter-spacing: -0.005em; margin-top: .3rem; }
+.skin__product { font: 300 clamp(1.5rem, 1.2rem + 1vw, 2rem)/1.15 var(--font-display); text-transform: none; letter-spacing: -0.005em; margin: .3rem 0 0; }
 .skin__line { color: var(--ink-soft); font-size: .95rem; margin-top: .2rem; }
 .skin__photo { margin: 0; padding-top: 10%; }
 .skin__photo .layer__main { width: 80%; margin-left: 20%; aspect-ratio: 4 / 5; }

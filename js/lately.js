@@ -43,31 +43,31 @@
     '</div>' +
   '</div>');
 
-  /* ---------- favorite books (illustrated bookshelf, js/shelves.js) ---------- */
-  var books = L.books || [];
+  /* ---------- favorites: books (bookshelf, js/shelves.js) + skincare ---------- */
+  var books = L.books || [], K = L.skincare;
+  function partHead(tag, title) {
+    return '<div class="fav-part__head"><span class="mono soft">' + esc(tag) + '</span><h3 class="reveal">' + rich(title) + '</h3></div>';
+  }
   set('favorites', '<div class="wrap">' +
-    '<div class="sec__head">' + label('03', 'Favorites') + '<h2 class="reveal">Favorite <em>books</em></h2></div>' +
-    '<div id="bookshelf"></div>' +
+    '<div class="sec__head">' + label('03', 'Favorites') + '<h2 class="reveal">' + rich(L.favoritesTitle || 'My *favorites*') + '</h2></div>' +
+    '<div class="fav-part">' + partHead('Books', L.booksTitle || 'Favorite *Books*') + '<div id="bookshelf"></div></div>' +
+    '<div class="fav-part fav-part--skin">' + partHead('Skincare', K.title) +
+      '<div id="skinshelf"></div>' +   // the skincare shelf illustration goes here when it arrives
+      '<div class="skin' + (K.photo ? ' has-photo' : '') + '">' +
+        '<ol class="skin__steps">' + K.steps.map(function (s, i) {
+          return '<li class="skin__step reveal"><span class="skin__n">' + (i + 1) + '</span>' +
+            '<div><span class="mono soft">' + esc(s.step) + (s.tag ? ' <span class="tag">' + esc(s.tag) + '</span>' : '') + '</span>' +
+            '<h4 class="skin__product">' + esc(s.product) + '</h4><p class="skin__line">' + esc(s.line) + '</p></div></li>';
+        }).join('') + '</ol>' +
+        (K.photo ? '<figure class="skin__photo layer"><div class="layer__ghost" data-speed="-6"><img src="' + esc(K.photo) + '" alt="" loading="lazy"></div><div class="layer__main"><img src="' + esc(K.photo) + '" alt="' + esc(K.photoAlt) + '" loading="lazy"></div></figure>' : '') +
+      '</div>' +
+    '</div>' +
   '</div>');
   var shelfEl = document.getElementById('bookshelf');
   if (window.Bookshelf) Bookshelf.init(shelfEl, books, { base: 'images/shelf/' });
   else shelfEl.innerHTML = '<ul class="fav__list">' + books.map(function (it) {
-    return '<li class="fav__item"><h3 class="fav__title">' + esc(it.title) + '</h3><span class="mono soft">' + esc(it.by) + '</span><p class="fav__line">' + esc(it.line) + '</p></li>';
+    return '<li class="fav__item"><h4 class="fav__title">' + esc(it.title) + '</h4><span class="mono soft">' + esc(it.by) + '</span><p class="fav__line">' + esc(it.line) + '</p></li>';
   }).join('') + '</ul>';
-
-  /* ---------- skincare ---------- */
-  var K = L.skincare;
-  set('skincare', '<div class="wrap">' +
-    '<div class="sec__head">' + label('04', 'Skincare') + '<h2 class="reveal">' + rich(K.title) + '</h2></div>' +
-    '<div class="skin' + (K.photo ? ' has-photo' : '') + '">' +
-      '<ol class="skin__steps">' + K.steps.map(function (s, i) {
-        return '<li class="skin__step reveal"><span class="skin__n">' + (i + 1) + '</span>' +
-          '<div><span class="mono soft">' + esc(s.step) + (s.tag ? ' <span class="tag">' + esc(s.tag) + '</span>' : '') + '</span>' +
-          '<h3 class="skin__product">' + esc(s.product) + '</h3><p class="skin__line">' + esc(s.line) + '</p></div></li>';
-      }).join('') + '</ol>' +
-      (K.photo ? '<figure class="skin__photo layer"><div class="layer__ghost" data-speed="-6"><img src="' + esc(K.photo) + '" alt="" loading="lazy"></div><div class="layer__main"><img src="' + esc(K.photo) + '" alt="' + esc(K.photoAlt) + '" loading="lazy"></div></figure>' : '') +
-    '</div>' +
-  '</div>');
 
   /* ---------- footer ---------- */
   var C = S.contact;
