@@ -30,7 +30,7 @@
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var instance = null;
 
-  function scaleNow() { return window.innerWidth < 640 ? 0.23 : 0.36; }
+  function scaleNow() { return window.innerWidth < 640 ? 0.19 : 0.36; }
 
   function mount(opts) {
     if (instance) return instance;
@@ -152,7 +152,7 @@
         } }));
       }
       function cycle() {
-        var far = -Math.max(40, Math.min(window.innerWidth * 0.3, 420));
+        var far = window.innerWidth < 640 ? -48 : -Math.max(40, Math.min(window.innerWidth * 0.3, 420));   // short walks on phones, so he stays in the corner
         leg(far, function () { leg(0, cycle); });
       }
       cycle();
@@ -200,8 +200,11 @@
       resizeT = setTimeout(function () { size(); if (current === 'walk') { var c = current; current = null; killLoops(); if (g) g.set(mv, { x: 0 }); setPose(c); } }, 200);
     });
 
+    // Step away (e.g. while he walks the Rover trail) and come back
+    function setAway(away) { slot.classList.toggle('is-away', !!away); }
+
     setPose(opts.pose || 'walk');
-    instance = { el: mv, slot: slot, setPose: setPose, say: say, get pose() { return current; } };
+    instance = { el: mv, slot: slot, setPose: setPose, say: say, setAway: setAway, get pose() { return current; } };
     return instance;
   }
 
@@ -222,5 +225,55 @@
     });
   }
 
-  window.Maverick = { mount: mount, bindToggle: bindToggle, poses: POSES, reduceMotion: reduce };
+  // A second, free-standing walking Maverick (same rig and legs) that a page moves itself,
+  // e.g. along the Rover trail. place(x, y) puts his paws at that point.
+  function walker(container, opts) {
+    opts = opts || {};
+    var base = opts.base || 'images/maverick/', g = window.gsap, P = POSES.walk;
+    var el = document.createElement('div');
+    el.className = 'mv-walker';
+    el.setAttribute('aria-hidden', 'true');
+    el.innerHTML = '<div class="mv-walker__flip"><div class="mv-rig">' + WALK_LEGS.map(function (L) {
+      return L.id === 'body'
+        ? '<img src="' + base + 'walk-body.webp" alt="" draggable="false">'
+        : '<img data-leg="' + L.id + '" src="' + base + 'walk-leg-' + L.id + '.webp" alt="" draggable="false">';
+    }).join('') + '</div></div>';
+    container.appendChild(el);
+    var flip = el.firstChild, rig = flip.firstChild, w = 0, h = 0, facing = 1;
+    function size() {
+      var s = window.innerWidth < 640 ? 0.125 : 0.22;
+      w = Math.round(P.w * s); h = Math.round(P.h * s);
+      el.style.width = w + 'px'; el.style.height = h + 'px';
+    }
+    size(); window.addEventListener('resize', size);
+    var gait = null, bob = null;
+    if (g && !reduce) {
+      var legs = WALK_LEGS.filter(function (d) { return d.id !== 'body'; }).map(function (d) {
+        var leg = rig.querySelector('[data-leg="' + d.id + '"]');
+        g.set(leg, { transformOrigin: d.px + '% ' + d.py + '%' });
+        return { el: leg, dir: d.dir };
+      });
+      gait = g.timeline({ repeat: -1, paused: true });
+      legs.forEach(function (l) { gait.fromTo(l.el, { rotation: -10 * l.dir }, { rotation: 10 * l.dir, duration: 0.3, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0); });
+      bob = g.to(rig, { y: -2, duration: 0.15, yoyo: true, repeat: -1, ease: 'sine.inOut', paused: true });
+    }
+    var moving = false, stopT;
+    function walking(on) {
+      if (!gait || on === moving) return;
+      moving = on;
+      if (on) { gait.resume(); bob.resume(); }
+      else { gait.pause(); bob.pause(); g.to(rig.querySelectorAll('[data-leg]'), { rotation: 0, duration: 0.25 }); g.to(rig, { y: 0, duration: 0.2 }); }
+    }
+    function face(dir) {
+      if (!dir || dir === facing) return;
+      facing = dir;
+      if (g && !reduce) g.to(flip, { scaleX: dir, duration: 0.18, ease: 'power1.out' }); else flip.style.transform = 'scaleX(' + dir + ')';
+    }
+    // paws sit about 6% above the image's bottom edge (the ground shadow)
+    function place(x, y) { el.style.transform = 'translate(' + Math.round(x - w / 2) + 'px,' + Math.round(y - h * 0.94) + 'px)'; }
+    function nudge() { walking(true); clearTimeout(stopT); stopT = setTimeout(function () { walking(false); }, 180); }
+    return { el: el, place: place, face: face, nudge: nudge, walking: walking, get width() { return w; } };
+  }
+
+  window.Maverick = { mount: mount, bindToggle: bindToggle, walker: walker, poses: POSES, reduceMotion: reduce };
 })();

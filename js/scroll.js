@@ -16,8 +16,10 @@
   function set(id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; }
 
   /* ---------- render ---------- */
-  document.title = S.name === 'Your Name' ? 'Personal Website' : S.name;
-  document.querySelectorAll('[data-name]').forEach(function (el) { el.textContent = S.name; });
+  var FULL = S.fullName || S.name;
+  document.title = FULL;
+  document.querySelectorAll('[data-name]').forEach(function (el) { el.textContent = FULL; });
+  function linked(s) { return esc(s).replace(/\[([^\]]+)\]\((#[\w-]+)\)/g, '<a class="link link--inline" href="$2">$1</a>'); }
 
   var H = S.home;
   set('home', '<div class="wrap">' +
@@ -25,7 +27,7 @@
     '<div class="hero__stage layer">' +
       '<div class="hero__frame layer__main"><picture><source media="(max-width: 600px)" srcset="' + esc(H.photoPhone) + '">' +
         '<img src="' + esc(H.photo) + '" alt="' + esc(H.photoAlt) + '" width="2000" height="1333" fetchpriority="high"></picture></div>' +
-      '<h1 class="hero__name"><span class="ln">' + esc(H.greeting) + '</span><span class="ln"><em>' + esc(S.name) + '</em></span></h1>' +
+      '<h1 class="hero__name"><span class="ln">' + esc(FULL.split(' ')[0]) + '</span><span class="ln"><em>' + esc(FULL.split(' ').slice(1).join(' ')) + '</em></span></h1>' +
     '</div>' +
     '<div class="hero__under"><p class="lede">' + esc(H.tagline) + '</p>' + label('01', 'Scroll') + '</div>' +
   '</div>');
@@ -35,13 +37,12 @@
     '<div class="sec__head">' + label('02', 'About') + '</div>' +
     '<div class="about">' +
       '<figure class="about__photos layer">' +
-        '<div class="layer__ghost" data-speed="-8"><img src="' + esc(A.ghost) + '" alt="" width="2000" height="1333" loading="lazy"></div>' +
         '<div class="layer__main"><img src="' + esc(A.photo) + '" alt="' + esc(A.photoAlt) + '" width="1000" height="1250" loading="lazy"></div>' +
-        '<figcaption class="mono">' + esc(A.caption) + '</figcaption>' +
       '</figure>' +
       '<div class="about__text">' +
         '<h2 id="about-h" class="reveal">' + rich(A.title) + '</h2>' +
-        '<p class="lede reveal">' + esc(A.lede) + '</p>' +
+        '<div class="about__intro reveal"><p class="about__hello">' + esc(A.hello) + '</p>' +
+          A.paragraphs.map(function (p) { return '<p class="lede">' + linked(p) + '</p>'; }).join('') + '</div>' +
         '<dl class="facts reveal">' + A.facts.map(function (f) { return '<div><dt class="mono">' + esc(f.label) + '</dt><dd>' + rich(f.value) + '</dd></div>'; }).join('') + '</dl>' +
         '<div class="reveal stack"><h3>Three things about me</h3><ol class="three">' +
           A.three.map(function (t, i) { return '<li><span class="n">' + ['i.', 'ii.', 'iii.', 'iv.', 'v.'][i] + '</span><span>' + esc(t) + '</span></li>'; }).join('') +
@@ -55,23 +56,30 @@
   '</div>');
 
   var R = S.rover;
-  var collage = [0, 1, 2].map(function (i) {
+  var walkPhotos = [0, 1, 2].map(function (i) {
     var src = R.photos[i];
-    var speed = [-6, 8, 14][i];
-    return src ? '<div class="ph" data-speed="' + speed + '"><img src="' + esc(src) + '" alt="A dog on a Rover walk" loading="lazy"></div>'
-               : '<div class="ph mono" data-speed="' + speed + '">Walk photo</div>';
+    return src ? '<div class="ph"><img src="' + esc(src) + '" alt="' + esc((R.photoAlts || [])[i] || 'A dog on a Rover walk') + '" loading="lazy"></div>'
+               : '<div class="ph mono">Walk photo</div>';
   }).join('');
   set('rover', '<div class="wrap">' +
     '<div class="sec__head">' + label('03', 'Rover') + '<h2 id="rover-h" class="reveal">' + rich(R.title) + '</h2></div>' +
-    '<div class="rover">' +
-      '<div class="rover__text">' +
-        '<div class="stats reveal">' + R.stats.map(function (s) { return '<div><b>' + esc(s.value) + '</b><span class="mono soft">' + esc(s.label) + '</span></div>'; }).join('') + '</div>' +
-        R.reviews.map(function (r, i) {
-          return '<blockquote class="quote reveal' + (i ? ' quote--small' : '') + '"><p>“' + esc(r.quote) + '”</p><span class="mono soft">— ' + esc(r.by) + '</span></blockquote>';
-        }).join('') +
-        '<div>' + linkBtn(R.profile, 'Book me on Rover', false, true) + '</div>' +
+    '<div class="walk">' +
+      '<svg class="walk__svg" aria-hidden="true" focusable="false"></svg>' +
+      '<div class="walk__row walk__stats-row"><span class="walk__stop mono soft">Stop 1 · The numbers</span>' +
+        '<div class="stats stats--' + R.stats.length + '">' + R.stats.map(function (s) { return '<div><b>' + esc(s.value) + '</b><span class="mono soft">' + esc(s.label) + '</span></div>'; }).join('') + '</div>' +
+        (R.badges && R.badges.length ? '<ul class="walk__badges">' + R.badges.map(function (b) { return '<li class="tag">' + esc(b) + '</li>'; }).join('') + '</ul>' : '') +
       '</div>' +
-      '<div class="collage" aria-label="Photos from Rover walks">' + collage + '</div>' +
+      '<div class="walk__row walk__reviews"><span class="walk__stop mono soft">Stop 2 · What owners say</span>' +
+        '<div class="walk__quotes">' + R.reviews.map(function (r, i) {
+          return '<blockquote class="quote' + (R.reviews.length === 1 ? ' quote--solo' : (i ? ' quote--small' : '')) + '"><p>“' + esc(r.quote) + '”</p><span class="mono soft">— ' + esc(r.by) + '</span></blockquote>';
+        }).join('') + '</div>' +
+      '</div>' +
+      '<div class="walk__row walk__photos-row"><span class="walk__stop mono soft">Stop 3 · Out on walks</span>' +
+        '<div class="walk__photos" aria-label="Photos from Rover walks">' + walkPhotos + '</div>' +
+      '</div>' +
+      '<div class="walk__row walk__end"><span class="walk__stop mono soft">Last stop</span>' +
+        linkBtn(R.profile, 'Book me on Rover', false, true) +
+      '</div>' +
     '</div>' +
   '</div>');
 
@@ -82,6 +90,16 @@
     '<div class="travel" id="travel-map"></div>' +
   '</div>');
   if (window.TravelMap) TravelMap.init(document.getElementById('travel-map'), T, { svg: 'data/world.svg', meta: 'data/world-meta.json' });
+
+  var X = S.latelyCta;
+  if (X) set('next', '<div class="wrap">' +
+    '<a class="cta" href="' + esc(X.href) + '">' +
+      '<span class="cta__lead">' + esc(X.lead) + '</span>' +
+      '<span class="cta__word"><span class="cta__letters">' + esc(X.word).split('').map(function (c) { return '<span class="ch">' + c + '</span>'; }).join('') + '</span>' +
+        '<span class="cta__arrow mono" aria-hidden="true">→</span></span>' +
+      '<span class="cta__open mono soft">Open</span>' +
+    '</a>' +
+  '</div>');
 
   var C = S.contact;
   var contactLinks = [
@@ -108,6 +126,8 @@
   /* ---------- Maverick ---------- */
   var mav = window.Maverick ? Maverick.mount({ base: 'images/maverick/', pose: 'walk' }) : null;
   document.querySelectorAll('.mv-toggle').forEach(function (b) { if (window.Maverick) Maverick.bindToggle(b); });
+  var walkEl = document.querySelector('#rover .walk');
+  if (walkEl && window.RoverTrail) RoverTrail.init(walkEl, { base: 'images/maverick/', mav: mav });
 
   /* ---------- motion ---------- */
   var links = document.querySelectorAll('.topnav a[data-sec]');
@@ -127,6 +147,10 @@
   gsap.from('.hero__frame img', { scale: 1.08, duration: 1.8, ease: 'power3.out' });
   gsap.from('.hero__name .ch', { yPercent: 110, duration: 1.1, ease: 'power4.out', stagger: 0.04, delay: 0.2 });
 
+  if (document.querySelector('.cta')) {
+    gsap.from('.cta__letters .ch', { yPercent: 110, duration: 1.1, ease: 'power4.out', stagger: 0.06, scrollTrigger: { trigger: '.cta', start: 'top 80%' } });
+    gsap.from('.cta__lead, .cta__open', { y: 16, opacity: 0.35, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '.cta', start: 'top 85%' } });
+  }
   gsap.utils.toArray('.sec-label .rule').forEach(function (r) {
     gsap.from(r, { scaleX: 0, duration: 1, ease: 'power3.inOut', scrollTrigger: { trigger: r, start: 'top 90%' } });
   });

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lately</title>
+  <meta name="description" content="What I'm reading, watching and listening to lately, plus my all-time favorites and skincare routine.">
+  <meta name="claude:viewport-fit-sides" content="cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-lately">
+  <nav class="topnav" aria-label="Main">
+    <div class="wrap">
+      <a class="topnav__name" href="index.html#home" data-name>Your Name</a>
+      <ul>
+        <li><a class="mono" href="index.html#home">Home</a></li>
+        <li><a class="mono" href="index.html#about">About</a></li>
+        <li><a class="mono" href="index.html#rover">Rover</a></li>
+        <li><a class="mono" href="index.html#travels">Travels</a></li>
+        <li><a class="mono is-active" href="lately.html" aria-current="page">Lately</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="sec sec--first" id="lately-top" aria-label="Right now" data-pose="stand"></section>
+    <section class="sec" id="repeat" aria-label="On repeat" data-pose="stand"></section>
+    <section class="sec" id="favorites" aria-label="All-time favorites" data-pose="lieheart"></section>
+    <section class="sec" id="skincare" aria-label="Skincare routine" data-pose="lieheart"></section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap mono">
+      <ul id="footer-links"></ul>
+      <div class="foot__right">
+        <span id="footer-note"></span>
+        <button class="mv-toggle" type="button" aria-pressed="false">🐾 <span>Hide Maverick</span></button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/maverick.js"></script>
+  <script src="js/lately.js"></script>
+</body>
+</html>

@@ -5,12 +5,12 @@
    Lines marked "SAMPLE" are placeholders until real content arrives.
    ========================================================== */
 window.SITE = {
-  name: 'Your Name',                        // SAMPLE
+  name: 'Emily',
+  fullName: 'Emily Jarboe',          // the hero headline, page title and nav corner
   issue: 'Vol 01 · November 2026',
   updated: 'Nov 2026',
 
   home: {
-    greeting: "Hi, I'm",
     tagline: 'Recent grad, Rover dog walker, and always planning the next trip.', // SAMPLE
     photo: 'images/me-sunset-wide.jpg',
     photoPhone: 'images/me-sunset.jpg',
@@ -21,13 +21,16 @@ window.SITE = {
     title: 'A little *about me*',
     photo: 'images/me-graduation.jpg',
     photoAlt: 'Graduation day beside the Testudo statue',
-    caption: 'Graduation day',
-    ghost: 'images/me-sunset-wide.jpg',
-    lede: "A few warm sentences about who you are go here. Send me rough notes and I'll shape them into something that sounds like you.", // SAMPLE
+    hello: 'Hi, I’m Emily.',
+    // [word](#section) turns a word into a link to that part of the page
+    paragraphs: [
+      'I’m based in Baltimore, Maryland, where I live and work. Outside the office, I spend as much time outdoors as I can: exploring the city’s parks, walking its neighborhoods, and playing soccer. I also enjoy discovering new things to do with my roommates, who are also my closest friends.',
+      'Two things that define me: a love of [travel](#travels), and a love of [dogs](#rover).'
+    ],
     facts: [                                                  // SAMPLE
       { label: 'Studied', value: 'Your *major*' },
       { label: 'Currently', value: "What you're *doing*" },
-      { label: 'Based in', value: 'Your *city*' },
+      { label: 'Based in', value: 'Baltimore, *MD*' },
       { label: 'Always', value: 'Petting *the dog*' }
     ],
     three: [                                                  // SAMPLE
@@ -45,17 +48,19 @@ window.SITE = {
 
   rover: {
     title: 'Walking dogs, *on Rover*',
-    profile: '',         // your Rover profile link
-    stats: [                                                  // SAMPLE
-      { value: '120+', label: 'Walks' },
-      { value: '5.0', label: 'Rating' },
-      { value: '18', label: 'Repeat clients' }
+    profile: 'https://www.rover.com/sit/emilyj51316',
+    stats: [
+      { value: '5.0', label: 'Star rating' },
+      { value: '11', label: 'Reviews' },
+      { value: '4', label: 'Repeat clients' },
+      { value: '7', label: 'Years of experience' }
     ],
-    reviews: [                                                // SAMPLE
-      { quote: 'A review from one of your clients goes here, in their own words.', by: 'Owner of Biscuit, a golden retriever' },
-      { quote: 'A second, shorter review sits here.', by: 'Owner of Luna, a beagle' }
+    badges: ['Star Sitter', 'Enhanced background check'],
+    reviews: [
+      { quote: 'Emily was wonderful with my pug puppy, Peaches! She watched her for the weekend, and I felt at ease knowing she was in great hands. Emily was communicative, prompt, and kept me updated with messages and photos. I highly recommend Emily to anyone looking for a trustworthy, caring, and reliable dog sitter. Would definitely book again!', by: 'Kaitlyn, owner of Peaches the pug puppy' }
     ],
-    photos: []           // e.g. ['images/rover/walk-1.jpg', ...]  (up to 3 are layered)
+    photos: ['images/rover/walk-1.jpg', 'images/rover/walk-2.jpg', 'images/rover/walk-3.jpg'],
+    photoAlts: ['Holding a black-and-tan puppy on the grass', 'Crouching with two dogs in fall leaves', 'Smiling beside a white dog in a playhouse']
   },
 
   travels: {
@@ -114,6 +119,48 @@ window.SITE = {
       { name: 'Bahamas', when: '', note: '', noPhotos: true },
       { name: 'Dominican Republic', map: 'Dominican Rep.', when: '', note: '', noPhotos: true }
     ]
+  },
+
+  // Big link at the bottom of the main page that leads to the Lately page
+  latelyCta: { lead: 'See what I am up to', word: 'Lately', href: 'lately.html' },
+
+  // ---------- LATELY PAGE (lately.html) ----------
+  lately: {
+    title: "What I'm *into* lately",
+    updated: 'November 2026',
+    now: [
+      { label: 'Reading', title: 'The Sixth Faction', by: 'Veronica Roth', line: '' },
+      { label: 'Just watched', title: 'East of Eden', by: 'Netflix series · Florence Pugh', line: "A family drama based on John Steinbeck's novel." },
+      { label: 'Listening', title: 'My playlist', by: 'Spotify', line: 'Press play below.', link: '#repeat' }
+    ],
+    spotify: {
+      url: 'https://open.spotify.com/playlist/5swchWLfuPaaZCRPdUDA0z',
+      embed: 'https://open.spotify.com/embed/playlist/5swchWLfuPaaZCRPdUDA0z?utm_source=generator'
+    },
+    // Favorites: one tab per list. "line" = genre and setting.
+    favorites: [
+      { tab: 'Books', items: [
+        { title: 'The Book Thief', by: 'Markus Zusak', line: 'Historical fiction set in Nazi Germany during World War II.' },
+        { title: 'Beneath a Scarlet Sky', by: 'Mark Sullivan', line: 'Historical fiction based on a true story, set in Italy during World War II.' },
+        { title: 'Where the Crawdads Sing', by: 'Delia Owens', line: 'A mystery and coming-of-age story set in the marshes of North Carolina.' },
+        { title: 'People We Meet on Vacation', by: 'Emily Henry', line: 'A friends-to-lovers romantic comedy told over years of summer trips.' }
+      ] },
+      { tab: 'Movies', items: [
+        { title: 'Frankenstein', by: 'Guillermo del Toro · 2025', line: "A gothic horror drama adapted from Mary Shelley's novel." },
+        { title: 'Pitch Perfect', by: 'Jason Moore · 2012', line: 'A musical comedy about a college a cappella group.' }
+      ] }
+    ],
+    skincare: {
+      title: 'My skincare *routine*',
+      photo: '',          // e.g. 'images/lately/skincare.jpg' once you send your shelfie
+      photoAlt: 'My four skincare products together on a shelf',
+      steps: [
+        { step: 'Cleanse', product: 'Round Lab 1025 Dokdo Cleanser', line: 'A gentle daily cleanser.' },
+        { step: 'Pad', product: 'Mediheal Madecassoside Blemish Pad', line: 'Soothing pads for blemish-prone skin.', tag: 'Night only' },
+        { step: 'Tone', product: 'Torriden hydrating toner', line: 'Lightweight hydration.' },
+        { step: 'Moisturize', product: 'Dr.G Red Blemish Clear Soothing Cream', line: 'A light, calming moisturizer.' }
+      ]
+    }
   },
 
   contact: {
