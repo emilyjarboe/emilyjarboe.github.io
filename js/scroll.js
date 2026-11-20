@@ -135,7 +135,7 @@
   if (!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
 
-  document.querySelectorAll('[data-pose]').forEach(function (sec) {
+  document.querySelectorAll('section[data-pose]').forEach(function (sec) {
     ScrollTrigger.create({ trigger: sec, start: 'top 55%', end: 'bottom 55%', onToggle: function (self) { if (self.isActive && mav) mav.setPose(sec.dataset.pose); } });
   });
   ['home', 'about', 'rover', 'travels'].forEach(function (id) {

@@ -170,15 +170,21 @@
         idle(name);
         return;
       }
+      // Only one Maverick at a time: stop any half-finished crossfade and hide every pose
+      // except the one on screen now (a fast scroll can cut a crossfade short).
+      var wraps = Object.keys(layers).map(function (n) { return layers[n].wrap; });
+      g.killTweensOf(wraps);
+      g.killTweensOf(mv);
+      wraps.forEach(function (w) { w.style.opacity = w === layers[prev].wrap ? 1 : 0; });
       // hop, crossfade, land
-      var t = g.timeline();
+      var t = g.timeline({ onInterrupt: function () { show(name); } });
       t.to(mv, { y: -22, duration: 0.2, ease: 'power2.out' })
        .to(layers[prev].wrap, { opacity: 0, duration: 0.22 }, 0.05)
        .to(layers[name].wrap, { opacity: 1, duration: 0.22 }, 0.12)
        .call(function () { setFacing(1); })
        .to(mv, { x: name === 'walk' ? g.getProperty(mv, 'x') : 0, duration: 0.35, ease: 'power2.inOut' }, 0)
        .to(mv, { y: 0, duration: 0.45, ease: 'bounce.out' }, 0.2)
-       .call(function () { if (current === name) idle(name); });
+       .call(function () { show(name); if (current === name) idle(name); });
       loops.push(t);
     }
 
