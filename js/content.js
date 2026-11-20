@@ -11,7 +11,7 @@ window.SITE = {
   updated: 'Nov 2026',
 
   home: {
-    tagline: 'Recent grad, Rover dog walker, and always planning the next trip.', // SAMPLE
+    tagline: 'Collecting moments and connections. Good company is my favorite destination.',
     photo: 'images/me-sunset-wide.jpg',
     photoPhone: 'images/me-sunset.jpg',
     photoAlt: 'Smiling on a terrace at sunset'
