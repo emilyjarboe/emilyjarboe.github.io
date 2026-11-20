@@ -137,18 +137,12 @@ window.SITE = {
       url: 'https://open.spotify.com/playlist/5swchWLfuPaaZCRPdUDA0z',
       embed: 'https://open.spotify.com/embed/playlist/5swchWLfuPaaZCRPdUDA0z?utm_source=generator'
     },
-    // Favorites: one tab per list. "line" = genre and setting.
-    favorites: [
-      { tab: 'Books', items: [
-        { title: 'The Book Thief', by: 'Markus Zusak', line: 'Historical fiction set in Nazi Germany during World War II.' },
-        { title: 'Beneath a Scarlet Sky', by: 'Mark Sullivan', line: 'Historical fiction based on a true story, set in Italy during World War II.' },
-        { title: 'Where the Crawdads Sing', by: 'Delia Owens', line: 'A mystery and coming-of-age story set in the marshes of North Carolina.' },
-        { title: 'People We Meet on Vacation', by: 'Emily Henry', line: 'A friends-to-lovers romantic comedy told over years of summer trips.' }
-      ] },
-      { tab: 'Movies', items: [
-        { title: 'Frankenstein', by: 'Guillermo del Toro · 2025', line: "A gothic horror drama adapted from Mary Shelley's novel." },
-        { title: 'Pitch Perfect', by: 'Jason Moore · 2012', line: 'A musical comedy about a college a cappella group.' }
-      ] }
+    // All-time favorite books. "line" = genre and setting.
+    books: [
+      { title: 'The Book Thief', by: 'Markus Zusak', line: 'Historical fiction set in Nazi Germany during World War II.' },
+      { title: 'Beneath a Scarlet Sky', by: 'Mark Sullivan', line: 'Historical fiction based on a true story, set in Italy during World War II.' },
+      { title: 'Where the Crawdads Sing', by: 'Delia Owens', line: 'A mystery and coming-of-age story set in the marshes of North Carolina.' },
+      { title: 'People We Meet on Vacation', by: 'Emily Henry', line: 'A friends-to-lovers romantic comedy told over years of summer trips.' }
     ],
     skincare: {
       title: 'My skincare *routine*',
