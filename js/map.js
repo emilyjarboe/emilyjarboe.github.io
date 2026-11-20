@@ -59,6 +59,7 @@
         }
       });
       svg.appendChild(dots);
+      fromHash();
 
       svg.addEventListener('click', function (e) {
         var t = e.target.closest('[data-i]');
@@ -78,6 +79,20 @@
     });
 
     chips.forEach(function (b) { b.addEventListener('click', function () { var i = +b.dataset.i; if (i === active) close(); else open(i); }); });
+
+    // A link like index.html#travels/denmark scrolls here and opens that country.
+    function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+    function fromHash() {
+      var m = /^#travels\/([\w-]+)/.exec(location.hash);
+      if (!m) return;
+      var i = countries.map(function (c) { return slug(c.name); }).indexOf(m[1]);
+      var sec = root.closest('section') || root;
+      function go() { sec.scrollIntoView({ behavior: 'auto', block: 'start' }); }
+      go();
+      if (document.readyState !== 'complete') window.addEventListener('load', go, { once: true });
+      if (i > -1) setTimeout(function () { go(); open(i); }, 400);
+    }
+    window.addEventListener('hashchange', fromHash);
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && active > -1) close(); });
 
     function setView(v) { if (svg) svg.setAttribute('viewBox', [v.x, v.y, v.w, v.h].map(function (n) { return Math.round(n * 10) / 10; }).join(' ')); }

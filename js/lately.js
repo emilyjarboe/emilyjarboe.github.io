@@ -43,14 +43,17 @@
     '</div>' +
   '</div>');
 
-  /* ---------- favorite books ---------- */
+  /* ---------- favorite books (illustrated bookshelf, js/shelves.js) ---------- */
   var books = L.books || [];
   set('favorites', '<div class="wrap">' +
     '<div class="sec__head">' + label('03', 'Favorites') + '<h2 class="reveal">All-time <em>favorite books</em></h2></div>' +
-    '<ul class="fav__list">' + books.map(function (it) {
-      return '<li class="fav__item reveal"><h3 class="fav__title">' + esc(it.title) + '</h3><span class="mono soft">' + esc(it.by) + '</span><p class="fav__line">' + esc(it.line) + '</p></li>';
-    }).join('') + '</ul>' +
+    '<div id="bookshelf"></div>' +
   '</div>');
+  var shelfEl = document.getElementById('bookshelf');
+  if (window.Bookshelf) Bookshelf.init(shelfEl, books, { base: 'images/shelf/' });
+  else shelfEl.innerHTML = '<ul class="fav__list">' + books.map(function (it) {
+    return '<li class="fav__item"><h3 class="fav__title">' + esc(it.title) + '</h3><span class="mono soft">' + esc(it.by) + '</span><p class="fav__line">' + esc(it.line) + '</p></li>';
+  }).join('') + '</ul>';
 
   /* ---------- skincare ---------- */
   var K = L.skincare;
