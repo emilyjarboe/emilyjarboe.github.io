@@ -19,7 +19,13 @@
   var FULL = S.fullName || S.name;
   document.title = FULL;
   document.querySelectorAll('[data-name]').forEach(function (el) { el.textContent = FULL; });
-  function linked(s) { return esc(s).replace(/\[([^\]]+)\]\((#[\w-]+)\)/g, '<a class="link link--inline" href="$2">$1</a>'); }
+  function linked(s) {
+    return esc(s).replace(/\[([^\]]+)\]\((#[\w-]+)\)/g, function (m, text, href) {
+      if (href === '#maverick') return '<button type="button" class="link link--inline link--btn" data-say-hi>' + text + '</button>';
+      return '<a class="link link--inline" href="' + href + '">' + text + '</a>';
+    });
+  }
+  function paras(v, cls) { return [].concat(v || []).map(function (p) { return '<p class="' + cls + ' reveal">' + linked(p) + '</p>'; }).join(''); }
 
   var H = S.home;
   set('home', '<div class="wrap">' +
@@ -43,13 +49,7 @@
         '<h2 id="about-h" class="reveal">' + rich(A.title) + '</h2>' +
         '<div class="about__intro reveal"><p class="about__hello">' + esc(A.hello) + '</p>' +
           A.paragraphs.map(function (p) { return '<p class="lede">' + linked(p) + '</p>'; }).join('') + '</div>' +
-        '<dl class="facts reveal">' + A.facts.map(function (f) { return '<div><dt class="mono">' + esc(f.label) + '</dt><dd>' + rich(f.value) + '</dd></div>'; }).join('') + '</dl>' +
-        '<div class="reveal stack"><h3>Three things about me</h3><ol class="three">' +
-          A.three.map(function (t, i) { return '<li><span class="n">' + ['i.', 'ii.', 'iii.', 'iv.', 'v.'][i] + '</span><span>' + esc(t) + '</span></li>'; }).join('') +
-        '</ol></div>' +
-        '<div class="reveal stack"><h3>Experience</h3><ul class="exp">' +
-          A.experience.map(function (e) { return '<li><span class="exp__role">' + esc(e.role) + ' <em>· ' + esc(e.place) + '</em></span><span class="mono soft">' + esc(e.dates) + '</span></li>'; }).join('') +
-        '</ul></div>' +
+        '<dl class="facts facts--' + A.facts.length + ' reveal">' + A.facts.map(function (f) { return '<div><dt class="mono">' + esc(f.label) + '</dt><dd>' + rich(f.value) + '</dd></div>'; }).join('') + '</dl>' +
         '<div class="row reveal">' + linkBtn(A.resume, 'Download resume', false) + linkBtn(A.linkedin, 'LinkedIn', true, true) + '</div>' +
       '</div>' +
     '</div>' +
@@ -62,7 +62,8 @@
                : '<div class="ph mono">Walk photo</div>';
   }).join('');
   set('rover', '<div class="wrap">' +
-    '<div class="sec__head">' + label('03', 'Rover') + '<h2 id="rover-h" class="reveal">' + rich(R.title) + '</h2></div>' +
+    '<div class="sec__head">' + label('03', 'Rover') + '<h2 id="rover-h" class="reveal">' + rich(R.title) + '</h2>' +
+      (R.intro ? '<p class="sec__quip reveal">' + esc(R.intro) + '</p>' : '') + '</div>' +
     '<div class="walk">' +
       '<svg class="walk__svg" aria-hidden="true" focusable="false"></svg>' +
       '<div class="walk__row walk__stats-row"><span class="walk__stop mono soft">Stop 1 · The numbers</span>' +
@@ -86,7 +87,7 @@
   var T = S.travels;
   set('travels', '<div class="wrap">' +
     '<div class="sec__head">' + label('04', 'Travels') + '<h2 id="travels-h" class="reveal">' + rich(T.title) + '</h2>' +
-      (T.intro ? '<p class="lede reveal">' + esc(T.intro) + '</p>' : '') + '</div>' +
+      '<div class="sec__intro">' + paras(T.intro, 'lede') + '</div></div>' +
     '<div class="travel" id="travel-map"></div>' +
   '</div>');
   if (window.TravelMap) TravelMap.init(document.getElementById('travel-map'), T, { svg: 'data/world.svg', meta: 'data/world-meta.json' });
@@ -126,6 +127,12 @@
   /* ---------- Maverick ---------- */
   var mav = window.Maverick ? Maverick.mount({ base: 'images/maverick/', pose: 'walk' }) : null;
   document.querySelectorAll('.mv-toggle').forEach(function (b) { if (window.Maverick) Maverick.bindToggle(b); });
+  document.querySelectorAll('[data-say-hi]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (!mav || document.documentElement.classList.contains('mv-hidden')) return;
+      mav.say('Hi, I\u2019m Maverick!');
+    });
+  });
   var walkEl = document.querySelector('#rover .walk');
   if (walkEl && window.RoverTrail) RoverTrail.init(walkEl, { base: 'images/maverick/', mav: mav });
 

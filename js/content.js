@@ -21,26 +21,16 @@ window.SITE = {
     title: 'A little *about me*',
     photo: 'images/me-graduation.jpg',
     photoAlt: 'Graduation day beside the Testudo statue',
-    hello: 'Hi, I’m Emily.',
-    // [word](#section) turns a word into a link to that part of the page
+    hello: 'Hi, I’m Emily,',
+    // [word](#section) links to that part of the page; [Maverick](#maverick) makes the corner dog say hi
     paragraphs: [
-      'I’m based in Baltimore, Maryland, where I live and work. Outside the office, I spend as much time outdoors as I can: exploring the city’s parks, walking its neighborhoods, and playing soccer. I also enjoy discovering new things to do with my roommates, who are also my closest friends.',
-      'Two things that define me: a love of [travel](#travels), and a love of [dogs](#rover).'
+      'Welcome to my page! You might have noticed the white dog in the corner, that is my family’s dog, [Maverick](#maverick)! I am passionate about traveling, creating art, and staying active. You can find me outdoors, hiking or just sitting in a park soaking up the sun. I am on a mission to live life to its fullest, seizing opportunities, and pushing myself out of my comfort zone.',
+      'Two things that define me: a love of [travel](#travels) and a love of [dogs](#rover).'
     ],
-    facts: [                                                  // SAMPLE
-      { label: 'Studied', value: 'Your *major*' },
-      { label: 'Currently', value: "What you're *doing*" },
+    facts: [
+      { label: 'Studied', value: 'Finance and Real Estate *Development*' },
       { label: 'Based in', value: 'Baltimore, *MD*' },
       { label: 'Always', value: 'Petting *the dog*' }
-    ],
-    three: [                                                  // SAMPLE
-      'A fun fact goes here.',
-      'A second, slightly surprising one.',
-      'And one that makes people smile.'
-    ],
-    experience: [                                             // SAMPLE
-      { role: 'Dog walker & sitter', place: 'Rover', dates: '2023 – now' },
-      { role: 'Your role', place: 'Company or organization', dates: 'Years' }
     ],
     resume: '',          // e.g. 'resume.pdf' once you send it
     linkedin: ''         // e.g. 'https://www.linkedin.com/in/yourname'
@@ -48,6 +38,7 @@ window.SITE = {
 
   rover: {
     title: 'Walking dogs, *on Rover*',
+    intro: 'You mean I get to hang out with dogs AND get paid?',
     profile: 'https://www.rover.com/sit/emilyj51316',
     stats: [
       { value: '5.0', label: 'Star rating' },
@@ -65,7 +56,10 @@ window.SITE = {
 
   travels: {
     title: 'Stamps in my *passport*',
-    intro: 'Some of my favorite photos and where I took them at.',
+    intro: [
+      'My love of traveling comes from the thrill of spontaneity and the moments you can’t plan for. I’m a true backpacker at heart: budget hostels, flexible plans, and everything I need in a 40L pack. What stays with me the most isn’t the places themselves but the people I meet along the way.',
+      'Here are some of my favorite photos and where I took them.'
+    ],
     // name = what the site shows; map = the country's name on the map, if different.
     // when / note are optional. Photos: focus = which part of the photo to keep in view when cropped.
     // noPhotos: true = a country with no photo panel (just the name, and the when/note if given).
@@ -130,12 +124,11 @@ window.SITE = {
     updated: 'November 2026',
     now: [
       { label: 'Reading', title: 'The Sixth Faction', by: 'Veronica Roth', line: '' },
-      { label: 'Just watched', title: 'East of Eden', by: 'Netflix series · Florence Pugh', line: "A family drama based on John Steinbeck's novel." },
-      { label: 'Listening', title: 'My playlist', by: 'Spotify', line: 'Press play below.', link: '#repeat' }
+      { label: 'Just watched', title: 'East of Eden', by: 'Netflix series · Florence Pugh', line: "A family drama based on John Steinbeck's novel." }
     ],
     spotify: {
-      url: 'https://open.spotify.com/playlist/5swchWLfuPaaZCRPdUDA0z',
-      embed: 'https://open.spotify.com/embed/playlist/5swchWLfuPaaZCRPdUDA0z?utm_source=generator'
+      url: 'https://open.spotify.com/playlist/1QUWpfmPBzlAgEg8jODCtf',
+      embed: 'https://open.spotify.com/embed/playlist/1QUWpfmPBzlAgEg8jODCtf?utm_source=generator'
     },
     // FAVORITES section: a headline, then two parts (books, then skincare).
     favoritesTitle: 'My *favorites*',

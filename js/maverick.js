@@ -190,8 +190,8 @@
 
     // ---------- interactions ----------
     var li = 0, timer;
-    function say() {
-      bubble.textContent = LINES[li++ % LINES.length];
+    function say(text) {
+      bubble.textContent = typeof text === 'string' ? text : LINES[li++ % LINES.length];
       bubble.classList.add('is-on');
       clearTimeout(timer);
       timer = setTimeout(function () { bubble.classList.remove('is-on'); }, 1800);
