@@ -46,7 +46,7 @@
   /* ---------- favorite books (illustrated bookshelf, js/shelves.js) ---------- */
   var books = L.books || [];
   set('favorites', '<div class="wrap">' +
-    '<div class="sec__head">' + label('03', 'Favorites') + '<h2 class="reveal">All-time <em>favorite books</em></h2></div>' +
+    '<div class="sec__head">' + label('03', 'Favorites') + '<h2 class="reveal">Favorite <em>books</em></h2></div>' +
     '<div id="bookshelf"></div>' +
   '</div>');
   var shelfEl = document.getElementById('bookshelf');
