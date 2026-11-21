@@ -52,17 +52,18 @@
     '<div class="sec__head">' + label('03', 'Favorites') + '<h2 class="reveal">' + rich(L.favoritesTitle || 'My *favorites*') + '</h2></div>' +
     '<div class="fav-part">' + partHead('Books', L.booksTitle || 'Favorite *Books*') + '<div id="bookshelf"></div></div>' +
     '<div class="fav-part fav-part--skin">' + partHead('Skincare', K.title) +
-      '<div id="skinshelf"></div>' +   // the skincare shelf illustration goes here when it arrives
-      '<div class="skin' + (K.photo ? ' has-photo' : '') + '">' +
+      '<div class="skin-grid">' +
+        '<div id="skinshelf"></div>' +
         '<ol class="skin__steps">' + K.steps.map(function (s, i) {
           return '<li class="skin__step reveal"><span class="skin__n">' + (i + 1) + '</span>' +
             '<div><span class="mono soft">' + esc(s.step) + (s.tag ? ' <span class="tag">' + esc(s.tag) + '</span>' : '') + '</span>' +
             '<h4 class="skin__product">' + esc(s.product) + '</h4><p class="skin__line">' + esc(s.line) + '</p></div></li>';
         }).join('') + '</ol>' +
-        (K.photo ? '<figure class="skin__photo layer"><div class="layer__ghost" data-speed="-6"><img src="' + esc(K.photo) + '" alt="" loading="lazy"></div><div class="layer__main"><img src="' + esc(K.photo) + '" alt="' + esc(K.photoAlt) + '" loading="lazy"></div></figure>' : '') +
       '</div>' +
     '</div>' +
   '</div>');
+  var skinEl = document.getElementById('skinshelf');
+  if (window.SkinShelf && K.art !== false) SkinShelf.init(skinEl, K.steps, document.querySelector('#favorites .skin__steps'), { base: 'images/shelf/' });
   var shelfEl = document.getElementById('bookshelf');
   if (window.Bookshelf) Bookshelf.init(shelfEl, books, { base: 'images/shelf/' });
   else shelfEl.innerHTML = '<ul class="fav__list">' + books.map(function (it) {

@@ -145,13 +145,12 @@ window.SITE = {
     ],
     skincare: {
       title: 'Skincare I’ve been *loving*',
-      photo: '',          // e.g. 'images/lately/skincare.jpg' once you send your shelfie
-      photoAlt: 'My four skincare products together on a shelf',
+      // shown on the illustrated tray (images/shelf/skincare.webp); steps stay in routine order
       steps: [
-        { step: 'Cleanse', product: 'Round Lab 1025 Dokdo Cleanser', line: 'A gentle daily cleanser.' },
-        { step: 'Pad', product: 'Mediheal Madecassoside Blemish Pad', line: 'Soothing pads for blemish-prone skin.', tag: 'Night only' },
-        { step: 'Tone', product: 'Torriden hydrating toner', line: 'Lightweight hydration.' },
-        { step: 'Moisturize', product: 'Dr.G Red Blemish Clear Soothing Cream', line: 'A light, calming moisturizer.' }
+        { step: 'Cleanse', product: 'Round Lab 1025 Dokdo Cleanser', line: 'A gentle, low-pH daily cleanser.' },
+        { step: 'Pad', product: 'Mediheal Madecassoside Blemish Pad', line: 'Calms redness and blemish-prone skin.', tag: 'Night only' },
+        { step: 'Serum', product: 'Torriden DIVE IN Serum', line: 'Deep hydration from low-molecular hyaluronic acid.' },
+        { step: 'Moisturize', product: 'Dr.G R.E.D Blemish Gel Moisturizer', line: 'A light gel that soothes sensitive skin.' }
       ]
     }
   },

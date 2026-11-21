@@ -269,6 +269,26 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .fav-part__head h3 { font: 300 var(--step-2)/1.05 var(--font-display); text-transform: none; letter-spacing: -0.01em; margin: 0; }
 #skinshelf:empty { display: none; }
 
+/* ---------- skincare tray (js/shelves.js → SkinShelf) ---------- */
+.skin-grid { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+.skin-grid:has(#skinshelf:empty) { grid-template-columns: 1fr; }
+.tray { position: relative; width: 100%; aspect-ratio: 1123 / 1120; }
+.tray__img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; user-select: none; -webkit-user-drag: none; }
+.tray__veil { position: absolute; inset: 0; background: var(--bg); opacity: 0; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; transition: opacity .3s; z-index: 4; pointer-events: none; }
+.tray.is-active .tray__veil { opacity: .55; }
+.tray__lift { position: absolute; display: block; opacity: 0; pointer-events: none; transform-origin: 50% 100%; transition: opacity .2s, filter .3s; }
+.tray__lift.is-on { opacity: 1; filter: drop-shadow(0 8px 8px rgba(40, 30, 20, .22)); }
+.tray__spot { position: absolute; padding: 0; margin: 0; border: 0; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.tray__spot:focus-visible { outline: none; }
+.tray__tag { position: absolute; z-index: 40; transform: translate(-50%, calc(-100% - 6px)); white-space: nowrap; font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; background: var(--ink); color: var(--paper); padding: .45em .8em; opacity: 0; pointer-events: none; transition: opacity .2s; }
+.tray__tag.is-on { opacity: 1; }
+.tray__tag b { font-weight: 500; color: #E2C27F; margin-left: .5em; }
+.skin__step { transition: background-color .25s; cursor: default; }
+.skin__step.is-on { background: var(--panel); }
+.skin__step.is-on .skin__n { color: var(--bronze); }
+.skin__step:focus-visible { outline-offset: -2px; }
+.skin-grid .skin__step { padding-left: .8rem; padding-right: .8rem; }
+
 /* ---------- bookshelf (Lately → favorites, js/shelves.js) ---------- */
 .shelf { display: grid; grid-template-columns: minmax(0, 520px) minmax(0, 1fr); gap: clamp(2rem, 6vw, 5.5rem); align-items: center; }
 .shelf__case { position: relative; width: 100%; aspect-ratio: 934 / 1246; }
@@ -309,6 +329,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .cover--empty span { grid-row: 2; font-size: 2rem; }
 
 @media (max-width: 860px) {
+  .skin-grid { grid-template-columns: 1fr; }
+  #skinshelf { max-width: 400px; width: 100%; margin-inline: auto; }
   .shelf { grid-template-columns: 1fr; }
   .shelf__case { max-width: 460px; margin-inline: auto; }
   .shelf__card { min-height: 0; grid-template-columns: minmax(0, 132px) minmax(0, 1fr); align-items: start; }
