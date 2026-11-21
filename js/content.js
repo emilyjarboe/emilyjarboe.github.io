@@ -32,8 +32,8 @@ window.SITE = {
       { label: 'Based in', value: 'Baltimore, *MD*' },
       { label: 'Always', value: 'Petting *the dog*' }
     ],
-    resume: '',          // e.g. 'resume.pdf' once you send it
-    linkedin: ''         // e.g. 'https://www.linkedin.com/in/yourname'
+    resume: 'resume/Emily-Jarboe-Resume.pdf',   // web copy: no phone number or location
+    linkedin: 'https://www.linkedin.com/in/emilyjarboe'
   },
 
   rover: {
@@ -156,8 +156,9 @@ window.SITE = {
   },
 
   contact: {
-    email: '',           // public email
-    linkedin: '',
+    // email is split in two so spam bots scanning the files don't find it; the page joins it
+    email: { user: 'ejarboe2001', domain: 'gmail.com' },
+    linkedin: 'https://www.linkedin.com/in/emilyjarboe',
     instagram: ''
   },
 

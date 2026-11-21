@@ -50,7 +50,7 @@
         '<div class="about__intro reveal"><p class="about__hello">' + esc(A.hello) + '</p>' +
           A.paragraphs.map(function (p) { return '<p class="lede">' + linked(p) + '</p>'; }).join('') + '</div>' +
         '<dl class="facts facts--' + A.facts.length + ' reveal">' + A.facts.map(function (f) { return '<div><dt class="mono">' + esc(f.label) + '</dt><dd>' + rich(f.value) + '</dd></div>'; }).join('') + '</dl>' +
-        '<div class="row reveal">' + linkBtn(A.resume, 'Download resume', false) + linkBtn(A.linkedin, 'LinkedIn', true, true) + '</div>' +
+        '<div class="row reveal">' + linkBtn(A.resume, 'Download resume', false, true) + linkBtn(A.linkedin, 'LinkedIn', true, true) + '<span data-email-btn></span></div>' +
       '</div>' +
     '</div>' +
   '</div>');
@@ -103,11 +103,13 @@
   '</div>');
 
   var C = S.contact;
+  var EMAIL = C.email && typeof C.email === 'object' ? C.email.user + '@' + C.email.domain : (C.email || '');
   var contactLinks = [
-    C.email ? '<li><a class="link" href="mailto:' + esc(C.email) + '">' + esc(C.email) + '</a></li>' : '<li class="is-pending">Email</li>',
+    EMAIL ? '<li><a class="link" href="mailto:' + esc(EMAIL) + '">' + esc(EMAIL) + '</a></li>' : '<li class="is-pending">Email</li>',
     C.linkedin ? '<li><a class="link" href="' + esc(C.linkedin) + '" target="_blank" rel="noopener">LinkedIn</a></li>' : '<li class="is-pending">LinkedIn</li>',
     C.instagram ? '<li><a class="link" href="' + esc(C.instagram) + '" target="_blank" rel="noopener">Instagram</a></li>' : ''
   ].join('');
+  document.querySelectorAll('[data-email-btn]').forEach(function (el) { el.outerHTML = EMAIL ? linkBtn('mailto:' + EMAIL, 'Email me', true) : ''; });
   set('footer-links', contactLinks + '<li><a class="link" href="lately.html">Lately →</a></li>');
   set('footer-note', (S.illustrationCredit ? esc(S.illustrationCredit) + ' · ' : '') + 'Last updated ' + esc(S.updated));
 

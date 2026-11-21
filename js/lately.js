@@ -72,9 +72,10 @@
 
   /* ---------- footer ---------- */
   var C = S.contact;
+  var EMAIL = C.email && typeof C.email === 'object' ? C.email.user + '@' + C.email.domain : (C.email || '');
   set('footer-links', [
     '<li><a class="link" href="index.html">← Main page</a></li>',
-    C.email ? '<li><a class="link" href="mailto:' + esc(C.email) + '">' + esc(C.email) + '</a></li>' : '<li class="is-pending">Email</li>',
+    EMAIL ? '<li><a class="link" href="mailto:' + esc(EMAIL) + '">' + esc(EMAIL) + '</a></li>' : '<li class="is-pending">Email</li>',
     C.linkedin ? '<li><a class="link" href="' + esc(C.linkedin) + '" target="_blank" rel="noopener">LinkedIn</a></li>' : '<li class="is-pending">LinkedIn</li>',
     C.instagram ? '<li><a class="link" href="' + esc(C.instagram) + '" target="_blank" rel="noopener">Instagram</a></li>' : ''
   ].join(''));
